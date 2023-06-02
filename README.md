@@ -153,3 +153,9 @@ Your goal is to select a cloud provider for each of the 4 required services - SQ
 ## License
 
 [License](LICENSE.txt)
+
+## NoSQL database provider selection explanation
+
+The decision to use AWS DynamoDB for our multi-cloud application project was primarily based on three key factors: cost, availability, and technology. After conducting a thorough comparison using cost calculators, we determined that AWS DynamoDB presented a more cost-effective solution than Azure Cosmos DB, which aligns with our goal of maintaining a lean budget without compromising on quality. Additionally, DynamoDB's high global availability, as confirmed by our internet research, assures us of its reliability to support our application, reducing the likelihood of disruptions or downtime. Technologically, DynamoDB's well-documented and proven capabilities in handling NoSQL databases, offering scalability, flexibility, and low latency at any scale, provide a robust platform that aligns seamlessly with our project requirements. Therefore, the overall evaluation points towards AWS DynamoDB as the optimal choice for our multi-cloud application.
+
+## GitHub link

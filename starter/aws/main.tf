@@ -42,7 +42,7 @@ resource "aws_route" "internet_access" {
 
 resource "aws_eip" "gateway" {
   count      = 2
-  vpc        = true
+  domain     = "vpc"
   depends_on = [aws_internet_gateway.gateway]
 }
 
@@ -71,7 +71,7 @@ resource "aws_route_table_association" "private" {
 resource "aws_security_group" "lb" {
   name   = "udacity-alb-security-group"
   vpc_id = aws_vpc.default.id
-
+  
   ingress {
     protocol    = "tcp"
     from_port   = 80
@@ -171,7 +171,7 @@ resource "aws_ecs_task_definition" "udacity_app" {
   container_definitions = <<DEFINITION
 [
   {
-    "image": "docker.io/tscotto5/aws_app:1.0",
+    "image": "docker.io/awshx/aws_app:1.0",
     "cpu": 1024,
     "memory": 2048,
     "name": "udacity-app",
@@ -179,11 +179,11 @@ resource "aws_ecs_task_definition" "udacity_app" {
     "environment": [
       {
         "name": "AZURE_SQL_SERVER",
-        "value": "udacity-tscotto-azure-sql"
+        "value": "hx-azure-sql"
       },
       {
         "name": "AZURE_DOTNET_APP",
-        "value": "udacity-tscotto-azure-dotnet-app"
+        "value": "hx-azure-dotnet-app"
       }
     ],
     "portMappings": [
@@ -204,3 +204,21 @@ variable "app_count" {
 
 ####### Your Additions Will Start Here ######
 
+resource "aws_s3_bucket" "bucket" {
+  bucket = "hx-aws-s3-bucket"
+  acl    = "private"
+  tags   = local.tags
+}
+
+resource "aws_dynamodb_table" "dynamodb_table" {
+  name           = "hx-aws-dynamodb"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 20
+  write_capacity = 20
+  hash_key       = "ID"
+  attribute {
+    name = "ID"
+    type = "N"
+  }
+  tags = local.tags
+}

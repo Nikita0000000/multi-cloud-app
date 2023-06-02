@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "udacity" {
-  name     = "Regroup_4gKqrgD_cn"
+  name     = "Regroup_0zBjlPlBCn5GGiE71jvhk"
 }
 
 resource "azurerm_container_group" "udacity" {
@@ -7,17 +7,17 @@ resource "azurerm_container_group" "udacity" {
   location            = data.azurerm_resource_group.udacity.location
   resource_group_name = data.azurerm_resource_group.udacity.name
   ip_address_type     = "Public"
-  dns_name_label      = "udacity-tscotto-azure"
+  dns_name_label      = "hx-azure"
   os_type             = "Linux"
 
   container {
     name   = "azure-container-app"
-    image  = "docker.io/tscotto5/azure_app:1.0"
+    image  = "docker.io/azurehx/azure_app:1.0"
     cpu    = "0.5"
     memory = "1.5"
     environment_variables = {
-      "AWS_S3_BUCKET"       = "udacity-tscotto-aws-s3-bucket",
-      "AWS_DYNAMO_INSTANCE" = "udacity-tscotto-aws-dynamodb"
+      "AWS_S3_BUCKET"       = "hx-aws-s3-bucket",
+      "AWS_DYNAMO_INSTANCE" = "hx-aws-dynamodb"
     }
     ports {
       port     = 3000
@@ -28,5 +28,43 @@ resource "azurerm_container_group" "udacity" {
     environment = "udacity"
   }
 }
-
 ####### Your Additions Will Start Here ######
+
+resource "azurerm_sql_server" "udacity" {
+  name                         = "hx-azure-sql"
+  resource_group_name          = data.azurerm_resource_group.udacity.name
+  location                     = data.azurerm_resource_group.udacity.location
+  version                      = "12.0"
+  administrator_login          = "4dm1n157r470rhx"
+  administrator_login_password = "4-v3ry-53cr37-p455w0rd-hx"
+  tags = {
+    environment = "udacity"
+  }
+}
+
+resource "azurerm_app_service_plan" "udacity" {
+  name                = "hx-azure-app-plan"
+  location            = data.azurerm_resource_group.udacity.location
+  resource_group_name = data.azurerm_resource_group.udacity.name
+  kind                = "Windows"
+  sku {
+    tier = "Standard"
+    size = "S1"
+  }
+}
+
+resource "azurerm_app_service" "udacity" {
+  name                = "hx-azure-dotnet-app"
+  location            = data.azurerm_resource_group.udacity.location
+  resource_group_name = data.azurerm_resource_group.udacity.name
+  app_service_plan_id = azurerm_app_service_plan.udacity.id
+  site_config {
+    dotnet_framework_version = "v5.0"
+  }
+  app_settings = {
+    "WEBSITE_RUN_FROM_PACKAGE" = "1"
+  }
+  tags = {
+    environment = "udacity"
+  }
+}
