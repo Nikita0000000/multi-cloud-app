@@ -69,7 +69,7 @@ resource "aws_route_table_association" "private" {
 }
 
 resource "aws_security_group" "lb" {
-  name   = "udacity-alb-security-group"
+  name   = "hx-udacity-alb-security-group"
   vpc_id = aws_vpc.default.id
   
   ingress {
@@ -113,7 +113,7 @@ resource "aws_lb_listener" "udacity_app" {
 }
 
 resource "aws_security_group" "udacity_app" {
-  name   = "udacity-task-security-group"
+  name   = "hx-udacity-task-security-group"
   vpc_id = aws_vpc.default.id
 
   ingress {
@@ -132,11 +132,11 @@ resource "aws_security_group" "udacity_app" {
 }
 
 resource "aws_ecs_cluster" "main" {
-  name = "udacity-cluster"
+  name = "hx-udacity-cluster"
 }
 
 resource "aws_ecs_service" "udacity_app" {
-  name            = "udacity-app-service"
+  name            = "hx-udacity-app-service"
   cluster         = aws_ecs_cluster.main.id
   task_definition = aws_ecs_task_definition.udacity_app.arn
   desired_count   = var.app_count
