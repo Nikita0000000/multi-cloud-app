@@ -10,6 +10,12 @@ resource "azurerm_container_group" "udacity" {
   dns_name_label      = "hx-azure"
   os_type             = "Linux"
 
+  image_registry_credential {
+    username = "nikita0598"
+    password = "CGD.qpt3cfk1mqh-epx"
+    server   = "docker.io"
+}
+
   container {
     name   = "azure-container-app"
     image  = "docker.io/azurehx/azure_app:1.0"
