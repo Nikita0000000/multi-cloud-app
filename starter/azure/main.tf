@@ -8,7 +8,7 @@ resource "azurerm_container_group" "udacity" {
   resource_group_name = data.azurerm_resource_group.udacity.name
   ip_address_type     = "Public"
   dns_name_label      = "hx-azure"
-  os_type             = "Linux"
+  os_type             = "Windows"
 
   image_registry_credential {
     username = "nikita0598"
