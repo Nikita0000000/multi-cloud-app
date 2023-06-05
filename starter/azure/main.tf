@@ -21,13 +21,13 @@ resource "azurerm_container_group" "udacity" {
   container {
     name   = "azure-container-app"
     image  = "docker.io/azurehx/azure_app:1.0"
-    cpu    = "0.5"
+    cpu    = "1"
     memory = "1.5"
     environment_variables = {
       "AWS_S3_BUCKET"       = "hx-aws-s3-bucket",
       "AWS_DYNAMO_INSTANCE" = "hx-aws-dynamodb"
     }
-    
+
     ports {
       port     = 3000
       protocol = "TCP"
