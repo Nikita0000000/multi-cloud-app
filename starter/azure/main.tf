@@ -8,23 +8,26 @@ resource "azurerm_container_group" "udacity" {
   resource_group_name = data.azurerm_resource_group.udacity.name
   ip_address_type     = "Public"
   dns_name_label      = "hx-azure"
-  os_type             = "Windows"
-
-  image_registry_credential {
-    username = "nikita0598"
-    password = "CGD.qpt3cfk1mqh-epx"
-    server   = "docker.io"
-}
+  os_type             = "Linux"
 
   container {
     name   = "azure-container-app"
     image  = "docker.io/azurehx/azure_app:1.0"
     cpu    = "0.5"
     memory = "1.5"
+
+    image_registry_credential {
+      username = "nikita0598"
+      password = "CGD.qpt3cfk1mqh-epx"
+      server   = "docker.io"
+    }
+
+    
     environment_variables = {
       "AWS_S3_BUCKET"       = "hx-aws-s3-bucket",
       "AWS_DYNAMO_INSTANCE" = "hx-aws-dynamodb"
     }
+    
     ports {
       port     = 3000
       protocol = "TCP"
