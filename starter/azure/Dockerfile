@@ -1,21 +1,18 @@
-# Use an official Python runtime as a parent image
-FROM python:3.7-slim
+# Use an official HashiCorp Terraform image as a base
+FROM hashicorp/terraform:1.0.5
 
-# Set the working directory in the container to /app
+# Set the working directory
 WORKDIR /app
 
-# Add metadata to an image
-LABEL maintainer="nikita0598"
-LABEL version="1.0"
+# Set environment variables for the Azure provider
+# These should be your actual credentials; this is just an example
+ENV ARM_CLIENT_ID="student_10f0d4vxli8q06s8_001544326@vocareumvocareum.onmicrosoft.com"
+ENV ARM_CLIENT_SECRET="1lp1K$CNSHUdBJcEeSi5cgBOva2P4ny!78#RK"
 
-# Copy the current directory contents into the container at /app
-ADD . /app
+# Copy your Terraform files into the container
+COPY . .
 
-# Install any needed packages directly 
-RUN pip install --no-cache-dir requests numpy pandas flask django scikit-learn 
+# Initialize Terraform (this downloads the necessary provider plugins and sets up the backend)
+RUN terraform init
 
-# Make port 3000 available to the world outside this container
-EXPOSE 3000
-
-# Run app.py when the container launches
-CMD ["python", "app.py"]
+CMD ["apply", "-auto-approve"]
