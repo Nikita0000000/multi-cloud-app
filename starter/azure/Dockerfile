@@ -6,8 +6,10 @@ WORKDIR /app
 
 # Set environment variables for the Azure provider
 # These should be your actual credentials; this is just an example
-ENV ARM_CLIENT_ID="student_10f0d4vxli8q06s8_001544326@vocareumvocareum.onmicrosoft.com"
-ENV ARM_CLIENT_SECRET="1lp1K$CNSHUdBJcEeSi5cgBOva2P4ny!78#RK"
+ENV ARM_SUBSCRIPTION_ID="94ec3a64-dcfe-4219-9e29-88221690c382"
+ENV ARM_CLIENT_ID="e26a1b53-7e3c-4461-9ead-edb6c2119f78"
+ENV ARM_CLIENT_SECRET="kE38Q~KKt5eHH_24h9ZNvPjxvvZZlrvXJgSNrb6k"
+ENV ARM_TENANT_ID="9b7cbd77-6d6b-4879-8aba-63d7dfb18472"
 
 # Copy your Terraform files into the container
 COPY . .
