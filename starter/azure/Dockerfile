@@ -17,4 +17,5 @@ COPY . .
 # Initialize Terraform (this downloads the necessary provider plugins and sets up the backend)
 RUN terraform init
 
-CMD ["apply", "-auto-approve"]
+# Apply Terraform configuration and keep the container running
+CMD ["sh", "-c", "terraform apply -auto-approve; sleep infinity"]
