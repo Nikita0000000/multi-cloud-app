@@ -12,11 +12,7 @@ resource "azurerm_container_group" "udacity" {
 
 
 
-  image_registry_credential {
-    username = "nikita0598"
-    password = "CGD.qpt3cfk1mqh-epx"
-    server   = "docker.io"
-  }
+
 
   container {
     name   = "azure-container-app"
