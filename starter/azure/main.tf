@@ -11,9 +11,9 @@ resource "azurerm_container_group" "udacity" {
   os_type             = "Linux"
     
     image_registry_credential {
-    username = "nikita0598"
-    password = "CGD.qpt3cfk1mqh-epx"
-    server   = "docker.io"
+      username = "nikita0598"
+      password = "CGD.qpt3cfk1mqh-epx"
+      server   = "docker.io"
     }
 
   container {
