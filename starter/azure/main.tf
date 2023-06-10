@@ -16,8 +16,8 @@ resource "azurerm_container_group" "udacity" {
 
   container {
     name   = "azure-container-app"
-    image  = "docker.io/nikita0598/azure_app:latest"
-    cpu    = "1"
+    image  = "docker.io/nikita0598/azure_app:1.0"
+    cpu    = "0.5"
     memory = "1.5"
     environment_variables = {
       "AWS_S3_BUCKET"       = "hx-aws-s3-bucket",
