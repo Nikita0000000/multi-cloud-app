@@ -18,7 +18,7 @@ resource "azurerm_container_group" "udacity" {
 
   container {
     name   = "azure-container-app"
-    image  = "docker.io/nikita0598/azure_app:1.0"
+    image  = "nikita0598/azure_app:1.0"
     cpu    = "1"
     memory = "1.5"
     environment_variables = {
