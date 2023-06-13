@@ -160,5 +160,5 @@ The decision to use AWS DynamoDB for our multi-cloud application project was pri
 
 ## Project links
 
-GitHub project link: `https://github.com/Nikita0000000/multi-clouding-app-project.git`
+GitHub project link: `https://github.com/Nikita0000000/multi-cloud-app.git`
 
