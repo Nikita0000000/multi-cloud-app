@@ -9,12 +9,6 @@ resource "azurerm_container_group" "udacity" {
   ip_address_type     = "Public"
   dns_name_label      = "hx-azure"
   os_type             = "Linux"
-    
-    image_registry_credential {
-      username = "nikita0598"
-      password = "CGD.qpt3cfk1mqh-epx"
-      server   = "docker.io"
-    }
 
   container {
     name   = "azure-container-app"
@@ -22,8 +16,8 @@ resource "azurerm_container_group" "udacity" {
     cpu    = "1"
     memory = "1.5"
     environment_variables = {
-      "AWS_S3_BUCKET"       = "hx-aws-s3-bucket",
-      "AWS_DYNAMO_INSTANCE" = "hx-aws-dynamodb"
+      "AWS_S3_BUCKET"       = "nikita-aws-s3-bucket",
+      "AWS_DYNAMO_INSTANCE" = "nikita-aws-dynamodb"
     }
 
     ports {
@@ -39,7 +33,7 @@ resource "azurerm_container_group" "udacity" {
 ####### Your Additions Will Start Here ######
 
 resource "azurerm_sql_server" "udacity" {
-  name                         = "hx-azure-sql"
+  name                         = "nikita-azure-sql"
   resource_group_name          = data.azurerm_resource_group.udacity.name
   location                     = data.azurerm_resource_group.udacity.location
   version                      = "12.0"
@@ -51,7 +45,7 @@ resource "azurerm_sql_server" "udacity" {
 }
 
 resource "azurerm_app_service_plan" "udacity" {
-  name                = "hx-azure-app-plan"
+  name                = "nikita-azure-app-plan"
   location            = data.azurerm_resource_group.udacity.location
   resource_group_name = data.azurerm_resource_group.udacity.name
   kind                = "Windows"
@@ -62,7 +56,7 @@ resource "azurerm_app_service_plan" "udacity" {
 }
 
 resource "azurerm_app_service" "udacity" {
-  name                = "hx-azure-dotnet-app"
+  name                = "nikita-azure-dotnet-app"
   location            = data.azurerm_resource_group.udacity.location
   resource_group_name = data.azurerm_resource_group.udacity.name
   app_service_plan_id = azurerm_app_service_plan.udacity.id

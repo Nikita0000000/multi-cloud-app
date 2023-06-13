@@ -171,7 +171,7 @@ resource "aws_ecs_task_definition" "udacity_app" {
   container_definitions = <<DEFINITION
 [
   {
-    "image": "docker.io/awshx/aws_app:1.0",
+    "image": "docker.io/nikita0598/aws_app:1.0",
     "cpu": 1024,
     "memory": 2048,
     "name": "udacity-app",
@@ -179,11 +179,11 @@ resource "aws_ecs_task_definition" "udacity_app" {
     "environment": [
       {
         "name": "AZURE_SQL_SERVER",
-        "value": "hx-azure-sql"
+        "value": "nikita-azure-sql"
       },
       {
         "name": "AZURE_DOTNET_APP",
-        "value": "hx-azure-dotnet-app"
+        "value": "nikita-azure-dotnet-app"
       }
     ],
     "portMappings": [
@@ -205,13 +205,13 @@ variable "app_count" {
 ####### Your Additions Will Start Here ######
 
 resource "aws_s3_bucket" "bucket" {
-  bucket = "hx-aws-s3-bucket"
+  bucket = "nikita-aws-s3-bucket"
   acl    = "private"
   tags   = local.tags
 }
 
 resource "aws_dynamodb_table" "dynamodb_table" {
-  name           = "hx-aws-dynamodb"
+  name           = "nikita-aws-dynamodb"
   billing_mode   = "PROVISIONED"
   read_capacity  = 20
   write_capacity = 20
