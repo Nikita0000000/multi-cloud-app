@@ -42,10 +42,10 @@ resource "azurerm_mssql_server" "udacity" {
   tags = {
     environment = "udacity"
   }
-  
+
 }
 
-resource "azurerm_app_service_plan" "udacity" {
+resource "azurerm_service_plan" "udacity" {
   name                = "udacity-nikita-app-service-plan"
   location            = data.azurerm_resource_group.udacity.location
   resource_group_name = data.azurerm_resource_group.udacity.name
@@ -54,22 +54,20 @@ resource "azurerm_app_service_plan" "udacity" {
     tier = "Basic"
     size = "B1"
   }
-
 }
 
 resource "azurerm_windows_web_app" "udacity" {
   name                = "udacity-nikita-azure-dotnet-app"
   location            = data.azurerm_resource_group.udacity.location
   resource_group_name = data.azurerm_resource_group.udacity.name
-  service_plan_id     = azurerm_app_service_plan.udacity.id
+  service_plan_id     = azurerm_service_plan.udacity.id
   
   site_config {
     always_on = true
-    dotnet_version = "5.0"
   }
   
   app_settings = {
     "WEBSITE_RUN_FROM_PACKAGE" = "1"
+    "net_framework_version" = "v5.0"
   }
-
 }
