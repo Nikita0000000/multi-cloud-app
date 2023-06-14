@@ -50,11 +50,15 @@ resource "azurerm_service_plan" "udacity" {
   location            = data.azurerm_resource_group.udacity.location
   resource_group_name = data.azurerm_resource_group.udacity.name
   kind                = "Windows"
-  sku {
-    tier = "Basic"
-    size = "B1"
+
+  sku_name = "B1" 
+  os_type = "Windows"
+
+  tags = {
+    environment = "udacity"
   }
 }
+
 
 resource "azurerm_windows_web_app" "udacity" {
   name                = "udacity-nikita-azure-dotnet-app"
