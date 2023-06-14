@@ -49,8 +49,7 @@ resource "azurerm_service_plan" "udacity" {
   name                = "udacity-nikita-app-service-plan"
   location            = data.azurerm_resource_group.udacity.location
   resource_group_name = data.azurerm_resource_group.udacity.name
-  kind                = "Windows"
-
+  
   sku_name = "B1" 
   os_type = "Windows"
 
