@@ -179,11 +179,11 @@ resource "aws_ecs_task_definition" "udacity_app" {
     "environment": [
       {
         "name": "AZURE_SQL_SERVER",
-        "value": "nikita-azure-sql"
+        "value": "udacity-nikita-azure-sql"
       },
       {
         "name": "AZURE_DOTNET_APP",
-        "value": "nikita-azure-dotnet-app"
+        "value": "udacity-nikita-azure-dotnet-app"
       }
     ],
     "portMappings": [
@@ -205,13 +205,13 @@ variable "app_count" {
 ####### Your Additions Will Start Here ######
 
 resource "aws_s3_bucket" "bucket" {
-  bucket = "nikita-aws-s3-bucket"
+  bucket = "udacity-nikita-aws-s3-bucket"
   acl    = "private"
   tags   = local.tags
 }
 
 resource "aws_dynamodb_table" "dynamodb_table" {
-  name           = "nikita-aws-dynamodb"
+  name           = "udacity-nikita-aws-dynamodb"
   billing_mode   = "PROVISIONED"
   read_capacity  = 20
   write_capacity = 20

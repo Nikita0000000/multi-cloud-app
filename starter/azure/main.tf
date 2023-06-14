@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "udacity" {
-  name     = "Regroup_0o0wQL"
+  name     = "Regroup_7giQVMt6iq7MrN8WJIWd"
 }
 
 resource "azurerm_container_group" "udacity" {
@@ -7,7 +7,7 @@ resource "azurerm_container_group" "udacity" {
   location            = data.azurerm_resource_group.udacity.location
   resource_group_name = data.azurerm_resource_group.udacity.name
   ip_address_type     = "Public"
-  dns_name_label      = "nikita-azure"
+  dns_name_label      = "udacity-nikitaazure"
   os_type             = "Linux"
 
   container {
@@ -16,8 +16,8 @@ resource "azurerm_container_group" "udacity" {
     cpu    = "1"
     memory = "1.5"
     environment_variables = {
-      "AWS_S3_BUCKET"       = "nikita-aws-s3-bucket",
-      "AWS_DYNAMO_INSTANCE" = "nikita-aws-dynamodb"
+      "AWS_S3_BUCKET"       = "udacity-nikita-aws-s3-bucket",
+      "AWS_DYNAMO_INSTANCE" = "udacity-nikita-aws-dynamodb"
     }
 
     ports {
@@ -32,8 +32,8 @@ resource "azurerm_container_group" "udacity" {
 
 ####### Your Additions Will Start Here ######
 
-resource "azurerm_sql_server" "udacity" {
-  name                         = "nikita-azure-sql"
+resource "azurerm_mssql_server" "udacity" {
+  name                         = "udacity-nikita-azure-sql"
   resource_group_name          = data.azurerm_resource_group.udacity.name
   location                     = data.azurerm_resource_group.udacity.location
   version                      = "12.0"
@@ -45,28 +45,27 @@ resource "azurerm_sql_server" "udacity" {
 }
 
 resource "azurerm_app_service_plan" "udacity" {
-  name                = "nikita-azure-app-plan"
+  name                = "udacity-nikita-app-service-plan"
   location            = data.azurerm_resource_group.udacity.location
   resource_group_name = data.azurerm_resource_group.udacity.name
   kind                = "Windows"
   sku {
-    tier = "Standard"
-    size = "S1"
+    tier = "Basic"
+    size = "B1"
   }
 }
 
-resource "azurerm_app_service" "udacity" {
-  name                = "nikita-azure-dotnet-app"
+resource "azurerm_windows_web_app" "udacity" {
+  name                = "udacity-nikita-azure-dotnet-app"
   location            = data.azurerm_resource_group.udacity.location
   resource_group_name = data.azurerm_resource_group.udacity.name
-  app_service_plan_id = azurerm_app_service_plan.udacity.id
+  app_service_plan_id = data.azurerm_app_service_plan.udacity.id
+  
   site_config {
     dotnet_framework_version = "v5.0"
   }
+  
   app_settings = {
     "WEBSITE_RUN_FROM_PACKAGE" = "1"
-  }
-  tags = {
-    environment = "udacity"
   }
 }
